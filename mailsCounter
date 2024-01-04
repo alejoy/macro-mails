@@ -1,0 +1,47 @@
+Sub ExtraerCorreosDeOutlook()
+
+Dim OutlookApp As Outlook.Application
+Dim ONameSpace As Object
+Dim MyFolder As Object
+Dim OItem As Outlook.MailItem
+Dim Fila As Integer
+Dim Fecha1 As Date
+Dim Fecha2 As Date
+Dim Senders As Variant
+Dim Sender As String
+Dim Cant As Integer
+Dim i As Integer
+
+Set OutlookApp = New Outlook.Application
+Set ONameSpace = OutlookApp.GetNamespace("MAPI")
+'Set MyFolder = ONameSpace.GetDefaultFolder(olFolderInbox)
+Set MyFolder = ONameSpace.Folders("Mesa de Ayuda").Folders("Bandeja de entrada")
+Range(Range("A2"), ActiveCell.SpecialCells(xlLastCell)).ClearContents
+
+Fila = 1
+Cant = 0
+i = 0
+Fecha1 = "01/12/2023"
+Fecha2 = "31/12/2023"
+Senders = Array("laura.carmagnola@bpn.com.ar", "carlos.diaz@bpn.com.ar", "mariano.rafti@bpn.com.ar", "demarcod@bpn.com.ar", "carolina.grasso@bpn.com.ar", "marcelo.alfonso@bpn.com.ar", "delcampoe@bpn.com.ar")
+
+For i = 0 To 6
+    Sender = Senders(i)
+    For Each OItem In MyFolder.Items
+        
+        If Int(OItem.ReceivedTime) >= Fecha1 And Int(OItem.ReceivedTime) <= Fecha2 Then
+                If InStr(1, OItem.Body, Sender) > 0 Then
+                    Cant = Cant + 1
+                End If
+        End If
+    Next OItem
+    Fila = Fila + 1
+    Sheets("Sheet1").Cells(Fila, 1).Value = Sender
+    Sheets("Sheet1").Cells(Fila, 2).Value = Cant
+    Cant = 0
+Next i
+Set OutlookApp = Nothing
+Set ONameSpace = Nothing
+Set MyFolder = Nothing
+Set SubFolder = Nothing
+End Sub
