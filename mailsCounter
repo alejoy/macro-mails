@@ -23,7 +23,7 @@ Cant = 0
 i = 0
 Fecha1 = "01/12/2023"
 Fecha2 = "31/12/2023"
-Senders = Array("laura.carmagnola@bpn.com.ar", "carlos.diaz@bpn.com.ar", "mariano.rafti@bpn.com.ar", "demarcod@bpn.com.ar", "carolina.grasso@bpn.com.ar", "marcelo.alfonso@bpn.com.ar", "delcampoe@bpn.com.ar")
+Senders = Array("mails@mails.com", "mails@mails.com", "mails@mails.com")
 
 For i = 0 To 6
     Sender = Senders(i)
